@@ -8,7 +8,12 @@ import com.orm.SugarRecord;
 
 public class Player extends SugarRecord {
     private String name;
-    private long teamId;
+    private long team_id;
+/*    private List<Player> players = new ArrayList<Player>();
+
+    public Player(List<Player> players) {
+        this.players = players;
+    }*/
 
     public Player() {
     }
@@ -21,11 +26,11 @@ public class Player extends SugarRecord {
         this.name = name;
     }
 
-    public long getTeamId() {
-        return teamId;
+    public long getTeam_id() {
+        return team_id;
     }
 
-    public void setTeamId(long teamId) {
-        this.teamId = teamId;
+    public void setTeam_id(long team_id) {
+        this.team_id = team_id;
     }
 }

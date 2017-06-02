@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import cl.andres.teammake.adapters.TeamsAdapter;
 import cl.andres.teammake.adapters.TeamsClick;
-import cl.andres.teammake.data.Queries;
 import cl.andres.teammake.models.Team;
 
 /**
@@ -59,8 +58,6 @@ public class TeamsListFragment extends Fragment implements TeamsClick{
     @Override
     public void clicked(long id) {
         Intent intent = new Intent(getActivity(), DetailTeamActivity.class);
-        Intent intent1 = new Intent(getActivity(), Queries.class);
-        intent1.putExtra(TEAM_ID, id);
         intent.putExtra(TEAM_ID, id);
         startActivity(intent);
     }

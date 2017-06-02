@@ -5,24 +5,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.List;
 
 import cl.andres.teammake.R;
-import cl.andres.teammake.data.Queries;
 import cl.andres.teammake.models.Player;
 
 /**
  * Created by Andrés on 30-05-2017.
  */
 
-public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.ViewHolder> {
+public class PlayersAdapter extends  RecyclerView.Adapter<PlayersAdapter.ViewHolder> {
 
 
+    private List<Player> players;
 
-    private List<Player> players = new Queries().Players();
-
+    public PlayersAdapter(long id) {
+        players = Player.find(Player.class, "teamId = ?", String.valueOf(id));
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,13 +34,33 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Player player = players.get(position);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final Player player = players.get(position);
         CheckBox checkBox = holder.checkBox;
         checkBox.setChecked(false);
 
         TextView textView = holder.textView;
         textView.setText(player.getName());
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+
+                    int auxPosition = holder.getAdapterPosition();
+                    players.get(auxPosition);
+                    players.remove(auxPosition);
+                    player.delete();
+                    notifyItemRemoved(auxPosition);
+                }
+            }
+        });
+    }
+
+
+    public void addPlayer(Player player){
+        players.add(0, player);
+        notifyItemInserted(0);
     }
 
 

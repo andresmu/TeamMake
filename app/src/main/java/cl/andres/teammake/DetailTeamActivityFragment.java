@@ -8,13 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import cl.andres.teammake.adapters.PlayersAdapter;
+import cl.andres.teammake.models.Player;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class DetailTeamActivityFragment extends Fragment {
+    private PlayersAdapter adapter;
 
 
     //private PlayersAdapter adapter;
@@ -31,16 +34,22 @@ public class DetailTeamActivityFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         RecyclerView recyclerView = (RecyclerView) view;
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
         recyclerView.setHasFixedSize(true);
 
-        PlayersAdapter adapter = new PlayersAdapter();
+        long id = getActivity().getIntent().getLongExtra(TeamsListFragment.TEAM_ID, 0);
+
+        adapter = new PlayersAdapter(id);
 
         recyclerView.setAdapter(adapter);
 
+    }
+
+    public void addPlayer(Player player){
+        Toast.makeText(getContext(), player.getName(), Toast.LENGTH_SHORT).show();
+        adapter.addPlayer(player);
     }
 }

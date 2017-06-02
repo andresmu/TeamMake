@@ -7,6 +7,7 @@ import java.util.List;
 import cl.andres.teammake.models.Player;
 import cl.andres.teammake.models.Team;
 
+
 /**
  * Created by Andrés on 30-05-2017.
  */
@@ -21,9 +22,10 @@ public class Queries extends AppCompatActivity {
     public List<Player> Players(){
         //long id = getIntent().getLongExtra(TeamsListFragment.TEAM_ID, 0);
         //String myString = Long.toString(id);
-//        return Player.find(Player.class, "teamId = ?", id); --> No comprendi porque no funcionó...
+        //return Player.find(Player.class, "teamId = ?", String.valueOf(id));
         return Player.listAll(Player.class);
 
     }
+
 
 }

@@ -28,12 +28,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@mipmap/ic_group_add_white_24dp" />
     <EditText
         android:id="@+id/nameEt"
         android:layout_width="250dp"
+        android:background="@drawable/rect_text_edit"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:hint="Nombre del equipo a guardar"/>
+        android:layout_gravity="bottom|left"
+        android:hint="Nombre del equipo"/>
 
 </android.support.design.widget.CoordinatorLayout>

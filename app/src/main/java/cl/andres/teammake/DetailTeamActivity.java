@@ -13,6 +13,7 @@ import cl.andres.teammake.models.Team;
 
 public class DetailTeamActivity extends AppCompatActivity {
 
+    private DetailTeamActivityFragment detailTeamActivityFragment;
     private Team team;
 
     @Override
@@ -21,11 +22,15 @@ public class DetailTeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_team);
 
         final long id = getIntent().getLongExtra(TeamsListFragment.TEAM_ID, 0);
-        Toast.makeText(getApplicationContext(),String.valueOf(id), Toast.LENGTH_SHORT).show();
-        team = team.findById(Team.class, id);
 
+        team = team.findById(Team.class, id);
+        Toast.makeText(getApplicationContext(),String.valueOf(team.getName()), Toast.LENGTH_SHORT).show();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle(team.getName());
+
+        detailTeamActivityFragment = (DetailTeamActivityFragment) getSupportFragmentManager().findFragmentById(R.id.DetailTeamActivityFragment);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab2);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +42,13 @@ public class DetailTeamActivity extends AppCompatActivity {
                 if (namePlayer.trim().length() > 0){
                     Player player = new Player();
                     player.setName(namePlayer);
-                    player.setTeamId(id);
+                    player.setTeam_id(id);
                     player.save();
+
+                    detailTeamActivityFragment.addPlayer(player);
+
+                    editText.setText("");
+
                 } else {
                     Toast.makeText(DetailTeamActivity.this, "Agrega un jugador", Toast.LENGTH_SHORT).show();
                 }
